@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Back" [icon]="buttonIcon">
+      </ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-text>Choose Category</ion-text>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card (click)="selectCategory(1)">Arbeit und Karriere</ion-card>
+
+      </ion-col>
+      <ion-col>
+        <ion-card (click)="selectCategory(2)">Gesundheit und Wohlbefinden</ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card (click)="selectCategory(3)">Liebe & Beziehung</ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card (click)="selectCategory(4)">Geld & Finanzen</ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card (click)="selectCategory(5)">Familie & Freunde</ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card (click)="selectCategory(6)">Phychologisches Wohlbefinden</ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card (click)="selectCategory(7)">Freizeit & Lebensstil</ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card (click)="selectCategory(8)">Persöhnliches Wachstum</ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card (click)="selectCategory(9)">Anderes Ziel</ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-title>Zusammenfassung</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button text="Back" [icon]="buttonIcon">
+      </ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+
+      <ion-item>
+        <ion-label>Dein neues Ziel {{ newGoalName }}</ion-label>
+
+      </ion-item>
+      <ion-item>
+        <ion-label>Dein neues Ziel ist dir wichtig {{ newGoalWhy }}
+        </ion-label>
+
+      </ion-item>
+
+      <ion-item-divider></ion-item-divider>
+
+      <ion-item>
+        <ion-label>Meilensteine hinzugügen
+        </ion-label>
+      </ion-item>
+
+      <ion-item *ngFor="let step of steps">
+        <ion-label>{{step.name}}
+        </ion-label>
+      </ion-item>
+
+
+
+
+      <ion-item>
+        <ion-input type="string" (ionBlur)="addStep()" [(ngModel)]="newStepString"
+          [ngModelOptions]="{standalone: true}">
+        </ion-input>
+
+      </ion-item>
+      <ion-item-divider></ion-item-divider>
+      <ion-item>
+        <ion-label>Start Date</ion-label>
+        <ion-datetime value="1990-02-19" placeholder="Select Date"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Start Time</ion-label>
+        <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Ends</ion-label>
+        <ion-datetime value="1990-02-20" placeholder="Select Date"></ion-datetime>
+      </ion-item>
+
+
+
+      <ion-item-divider></ion-item-divider>
+    </ion-list>
+    <ion-grid>
+      <ion-row></ion-row>
+      <ion-label position="stacked">Füge deinem Ziel Steps hinzu
+      </ion-label>
+
+      <ion-row>
+        <ion-col size="3">
+          <ion-button shape="round" size="small">Add</ion-button>
+        </ion-col>
+        <ion-col>
+        </ion-col>
+      </ion-row>
+
+
+
+    </ion-grid>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-button type="submit" color="dark" expand="block" [disabled]="!f.valid">
+          Ziel Speichern
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
