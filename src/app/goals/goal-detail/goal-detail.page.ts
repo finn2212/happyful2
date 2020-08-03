@@ -16,6 +16,7 @@ export class GoalDetailPage implements OnInit {
   steps: Array<GoalStep> = [];
   newStepString;
   goal: Goal;
+  mode: boolean;
 
   constructor(private goalsService: GoalsService,
     private router: Router,
@@ -47,6 +48,10 @@ export class GoalDetailPage implements OnInit {
     }
     this.newStepString = '';
     console.log('addStep');
+  }
+  changeMode() {
+    this.mode = !this.mode;
+    console.log(this.mode);
   }
 
 

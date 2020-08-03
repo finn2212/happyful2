@@ -13,7 +13,11 @@ export class GoalsService {
   newGoalWhy: string;
   newGoalCategory;
   newGoalSteps: Array<GoalStep> = [];
+  newGoalDesc: string;
   selectedGoal: Goal;
+  newGoalStartDate: Date;
+  newGoalEndDate: Date;
+
 
   constructor(
     private localDb: Storage,
@@ -29,11 +33,20 @@ export class GoalsService {
     const goal = new Goal(this.newGoalName, this.newGoalWhy);
     goal.steps = this.newGoalSteps;
     goal.category = this.newGoalCategory;
+    goal.desc = this.newGoalDesc;
+    if (this.newGoalStartDate) {
+      goal.startDate = this.newGoalStartDate;
+    }
+    if (this.newGoalEndDate) {
+      goal.endDate = this.newGoalEndDate;
+    }
     this.goals.push(goal);
     this.storeGoals();
     this.newGoalSteps = [];
     this.newGoalName = "";
     this.newGoalWhy = "";
+    this.newGoalEndDate = null;
+    this.newGoalEndDate = null;
     this.router.navigateByUrl('/tabs/goals');
 
   }

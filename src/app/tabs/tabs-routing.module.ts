@@ -13,8 +13,8 @@ const routes: Routes = [
         loadChildren: () => import('../goals/goals.module').then(m => m.GoalsPageModule)
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'calender',
+        loadChildren: () => import('../calendar/caladar/caladar.module').then(m => m.CaladarPageModule)
       },
       {
         path: 'tab3',
@@ -29,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/tabs/tab2',
+    redirectTo: '/tabs/calender',
     pathMatch: 'full'
   }
 ];

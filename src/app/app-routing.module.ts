@@ -9,6 +9,14 @@ const routes: Routes = [
   {
     path: 'goals',
     loadChildren: () => import('./goals/goals.module').then(m => m.GoalsPageModule)
+  },
+  {
+    path: 'cal-modal',
+    loadChildren: () => import('./calendar/cal-modal/cal-modal.module').then( m => m.CalModalPageModule)
+  },
+  {
+    path: 'caladar',
+    loadChildren: () => import('./calendar/caladar/caladar.module').then( m => m.CaladarPageModule)
   }
 ];
 @NgModule({

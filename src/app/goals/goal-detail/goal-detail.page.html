@@ -7,7 +7,8 @@
       <ion-back-button text="Back" [icon]="buttonIcon">
       </ion-back-button>
     </ion-buttons>
-    <ion-button fill="clear" slot="end">Bearbeiten</ion-button>
+    <ion-button *ngIf="!mode" (click)="changeMode()" fill="clear" slot="end">Bearbeiten</ion-button>
+    <ion-button *ngIf="mode" (click)="changeMode()" fill="clear" slot="end">Speichern</ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -21,7 +22,6 @@
       <ion-item>
         <ion-label>{{ goal.why }}
         </ion-label>
-
       </ion-item>
 
       <ion-item-divider></ion-item-divider>
@@ -35,8 +35,6 @@
       <ion-item *ngFor="let step of steps">
         <ion-checkbox></ion-checkbox>
         <ion-label>{{step.name}} </ion-label>
-
-
       </ion-item>
       <ion-item>
 
@@ -50,21 +48,30 @@
 
       </ion-item>
       <ion-item-divider></ion-item-divider>
-      <ion-item>
-        <ion-label>Start Date</ion-label>
-        <ion-datetime value="1990-02-19" placeholder="Select Date"></ion-datetime>
+      <ion-item *ngIf="!mode">
+        <ion-label>Start Date:</ion-label>
+        <ion-label> {{goal.startDate}}</ion-label>
       </ion-item>
-      <ion-item>
-        <ion-label>Start Time</ion-label>
-        <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z"></ion-datetime>
+      <ion-item *ngIf="mode">
+        <ion-label>Start Date:</ion-label>
+        <ion-datetime value="goal.startDate" placeholder="Select Date"></ion-datetime>
       </ion-item>
+
+
       <ion-item>
-        <ion-label>Ends</ion-label>
+        <ion-label>End Date</ion-label>
         <ion-datetime value="1990-02-20" placeholder="Select Date"></ion-datetime>
       </ion-item>
 
+      <ion-item-divider></ion-item-divider>
+      <ion-item>
+        <ion-label>Beschreibung</ion-label>
+      </ion-item>
+      <ion-item>
 
+        <p>{{goal.desc}}</p>
 
+      </ion-item>
       <ion-item-divider></ion-item-divider>
     </ion-list>
 

@@ -10,6 +10,8 @@ export class Goal {
   desc: string;
   steps: Array<GoalStep>;
   activ: boolean;
+  startDate: Date;
+  endDate: Date;
 
   constructor(name: string, why: string) {
 

@@ -16,6 +16,7 @@ export class NewGoalSubmitPage implements OnInit {
   steps: Array<GoalStep> = [];
   newStepString;
   newGoalCategory;
+  newGoalDesc;
 
   constructor(private goalsService: GoalsService,
     private router: Router,
@@ -39,6 +40,16 @@ export class NewGoalSubmitPage implements OnInit {
 
   async onSubmit(form: NgForm) {
     this.goalsService.newGoalSteps = this.steps;
+    this.goalsService.newGoalDesc = form.value.desc;
+    if (form.value.startDate) {
+      this.goalsService.newGoalStartDate = form.value.startDate;
+      console.log(form.value.startDate);
+    }
+    if (form.value.startDate) {
+      this.goalsService.newGoalEndDate = form.value.endDate;
+      console.log(form.value.endDate);
+    }
+
     this.steps = [];
     await this.goalsService.createGoal();
     form.reset();
