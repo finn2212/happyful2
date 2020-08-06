@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { GoalsService } from '../goals.service'
 import { Router } from '@angular/router';
-import { Goal } from '../../models/goal';
 import { GoalStep } from '../../models/goalStep'
+import { Calitem } from 'src/app/models/calItem';
+import { CalenderService } from '../../calendar/calender.service'
 
 @Component({
   selector: 'app-new-goal-submit',
@@ -17,9 +18,11 @@ export class NewGoalSubmitPage implements OnInit {
   newStepString;
   newGoalCategory;
   newGoalDesc;
+  newStepDate;
 
   constructor(private goalsService: GoalsService,
     private router: Router,
+    private calSerice: CalenderService
   ) { }
 
 
@@ -57,7 +60,13 @@ export class NewGoalSubmitPage implements OnInit {
   addStep() {
     if (this.newStepString) {
       const step = new GoalStep(this.newStepString);
+      let end = new Date(2020, 10, 4, 14, 30);
+      console.log(this.newStepDate);
+      let calitem = new Calitem(this.newStepString, new Date(this.newStepDate), end);
+      this.calSerice.addEventToCalendar(calitem);
+      step.calItem = calitem;
       this.steps.push(step);
+      console.log(calitem);
     }
     this.newStepString = '';
     console.log('addStep');

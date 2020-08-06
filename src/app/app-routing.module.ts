@@ -17,6 +17,10 @@ const routes: Routes = [
   {
     path: 'caladar',
     loadChildren: () => import('./calendar/caladar/caladar.module').then( m => m.CaladarPageModule)
+  },
+  {
+    path: 'calendar-detail',
+    loadChildren: () => import('./calendar/calendar-detail/calendar-detail.module').then( m => m.CalendarDetailPageModule)
   }
 ];
 @NgModule({

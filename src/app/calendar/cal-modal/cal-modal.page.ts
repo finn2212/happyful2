@@ -47,5 +47,8 @@ export class CalModalPage implements AfterViewInit {
   close() {
     this.modalCtrl.dismiss();
   }
+  onEventSelected(event) {
+    console.log(event);
+  }
 
 }

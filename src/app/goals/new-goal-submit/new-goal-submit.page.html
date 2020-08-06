@@ -34,6 +34,11 @@
         <ion-label>{{step.name}} </ion-label>
       </ion-item>
       <ion-item>
+        <ion-label>D</ion-label>
+        <ion-datetime [(ngModel)]="newStepDate" [ngModelOptions]="{standalone: true}" value="2020-09-20"
+          placeholder="Select Date"></ion-datetime>
+      </ion-item>
+      <ion-item>
         <ion-input type="string" (ionBlur)="addStep()" [(ngModel)]="newStepString"
           [ngModelOptions]="{standalone: true}">
           <ion-button size="small" (click)="addStep()" fill="clear">
