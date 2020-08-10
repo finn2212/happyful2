@@ -38,7 +38,7 @@ export class GoalsPage implements OnInit {
   }
 
   newGoal() {
-    this.router.navigateByUrl('/goals/choose-category');
+    this.router.navigateByUrl('/tabs/goals/choose-category');
   }
   segmentChanged(ev: any) {
     this.isActiveGoals = !this.isActiveGoals;

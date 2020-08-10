@@ -23,6 +23,6 @@ export class ChooseCategoryPage implements OnInit {
   selectCategory(category: number) {
     console.log(Category[category]);
     this.goalsService.newGoalCategory = Category[category];
-    this.router.navigateByUrl('/goals/new-goal');
+    this.router.navigateByUrl('/tabs/goals/new-goal');
   }
 }

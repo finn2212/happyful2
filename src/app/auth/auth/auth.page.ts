@@ -45,7 +45,7 @@ export class AuthPage implements OnInit {
             console.log(resData);
             this.isLoading = false;
             loadingEl.dismiss();
-            this.router.navigateByUrl('/tabs/caladar');
+            this.router.navigateByUrl('/loading');
           },
           errRes => {
             loadingEl.dismiss();

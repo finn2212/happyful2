@@ -5,8 +5,6 @@ import { CalenderService } from '../calender.service';
 
 import { CalModalPage } from '../cal-modal/cal-modal.page';
 import { CalendarDetailPage } from '../calendar-detail/calendar-detail.page';
-import { Calitem } from 'src/app/models/calItem';
-import { LoadDataService } from 'src/app/load-data.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-caladar',
@@ -26,21 +24,25 @@ export class CaladarPage implements OnInit {
   constructor(private modalCtrl: ModalController, private calService: CalenderService, private router: Router) { }
 
   ngOnInit() {
+    console.log("enter Calender");
     console.log(this.calService.isDataloaded);
     if (this.calService.isDataloaded == false) {
       this.router.navigateByUrl("/loading");
     }
 
     this.eventSource = this.calService.getAllEvents();
+    this.myCal.loadEvents();
 
 
   }
   ionViewWillEnter() {
+    console.log("enter Calender");
     console.log(this.calService.isDataloaded);
     if (this.calService.isDataloaded == false) {
       this.router.navigateByUrl("/loading");
     }
     this.eventSource = this.calService.getAllEvents();
+    this.myCal.loadEvents();
   }
 
   getEntries() {

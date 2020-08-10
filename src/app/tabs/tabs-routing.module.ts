@@ -17,8 +17,12 @@ const routes: Routes = [
         loadChildren: () => import('../calendar/caladar/caladar.module').then(m => m.CaladarPageModule)
       },
       {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        path: 'calendar-detail',
+        loadChildren: () => import('../calendar/calendar-detail/calendar-detail.module').then(m => m.CalendarDetailPageModule)
+      },
+      {
+        path: 'todos',
+        loadChildren: () => import('../todos/todos.module').then(m => m.TodosPageModule)
       },
       {
         path: '',

@@ -36,15 +36,17 @@ export class CalenderService {
 
 
   loadToArry() {
-    console.log(this.isDataloaded);
-    this._events.forEach(element => {
-      console.log(element.title + "wird geladen")
-      element.startTime = new Date(element.startTime);
-      element.endTime = new Date(element.endTime);
-      this.events.push(element);
-      console.log(element.title + "zum Kalender hinzugefügt")
-      this.isDataloaded = true;
-    });
+    if (this.isDataloaded != true) {
+      this._events.forEach(element => {
+        console.log(element.title + "wird geladen")
+        element.startTime = new Date(element.startTime);
+        element.endTime = new Date(element.endTime);
+        this.events.push(element);
+        console.log(element.title + "zum Kalender hinzugefügt")
+        this.isDataloaded = true;
+      });
+    }
+
   }
 
   async loadEventsAsync() {
@@ -53,7 +55,7 @@ export class CalenderService {
       this._events = await this.localDb.get('events');
       console.log(await this.localDb.get('events'));
       console.log("Ausm Speicher init");
-      this.isDataloaded = true;
+
 
     }
   }

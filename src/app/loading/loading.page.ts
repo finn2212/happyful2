@@ -21,8 +21,9 @@ export class LoadingPage implements OnInit {
   }
 
   wait() {
+    if (this.calService)
 
-    this.calService.loadEventsAsync();
+      this.calService.loadEventsAsync();
     this.goalService.loadGoalsAsync();
     let TIME_IN_MS = 2000;
     let hideFooterTimeout = setTimeout(() => {

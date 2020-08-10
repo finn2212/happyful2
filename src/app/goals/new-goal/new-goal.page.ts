@@ -19,7 +19,7 @@ export class NewGoalPage implements OnInit {
   onSubmit(form: NgForm) {
 
     this.goalsService.newGoalName = form.value.name;
-    this.router.navigateByUrl('/goals/new-goal-why');
+    this.router.navigateByUrl('/tabs/goals/new-goal-why');
     form.reset();
   }
 
