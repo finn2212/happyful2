@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { AuthService } from './auth/auth.service';
+import { CalendarService } from 'ionic2-calendar/calendar.service';
+import { CalenderService } from './calendar/calender.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +21,8 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private platform: Platform,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private calService: CalenderService
   ) {
     this.initializeApp();
   }
@@ -43,7 +46,11 @@ export class AppComponent implements OnInit, OnDestroy {
       'appStateChange',
       this.checkAuthOnResume.bind(this)
     );
+    if (this.calService.isDataloaded == false) {
+      this.router.navigateByUrl("/loading");
+    }
   }
+
 
   onLogout() {
     this.authService.logout();

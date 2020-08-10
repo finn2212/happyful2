@@ -23,24 +23,14 @@ export class CaladarPage implements OnInit {
 
   constructor(private modalCtrl: ModalController, private calService: CalenderService, private router: Router) { }
 
-  ngOnInit() {
-    console.log("enter Calender");
-    console.log(this.calService.isDataloaded);
-    if (this.calService.isDataloaded == false) {
-      this.router.navigateByUrl("/loading");
-    }
 
+  ngOnInit() {
+  }
+  ionViewDidLoad() {
     this.eventSource = this.calService.getAllEvents();
     this.myCal.loadEvents();
-
-
   }
   ionViewWillEnter() {
-    console.log("enter Calender");
-    console.log(this.calService.isDataloaded);
-    if (this.calService.isDataloaded == false) {
-      this.router.navigateByUrl("/loading");
-    }
     this.eventSource = this.calService.getAllEvents();
     this.myCal.loadEvents();
   }
