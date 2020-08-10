@@ -1,22 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Calitem } from '../models/calItem';
-import { GoalsService } from '../goals/goals.service';
 import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalenderService {
   calenderEvent;
+  _events = [];
   events: Array<Calitem> = [];
+  isDataloaded: boolean;
 
-  constructor(private goalService: GoalsService,
+  constructor(private router: Router,
     private localDb: Storage,) {
+    this.isDataloaded = false;
+
 
   }
 
   addEventToCalendar(calitem: Calitem) {
     console.log(calitem);
+    calitem.startTime = new Date(calitem.startTime);
+    calitem.endTime = new Date(calitem.endTime);
     this.events.push(calitem);
     this.storeEvents();
   }
@@ -28,64 +34,27 @@ export class CalenderService {
     this.localDb.set('events', this.events);
   }
 
-  async loadEventsAsync() {
-    if (await this.localDb.get('events')) {
-      this.events = await this.localDb.get('events');
-      this.events.forEach(item => {
-        if (item.startTime) {
-          item.startTime = new Date(item.startTime);
-        }
-        else {
-          item.startTime = new Date();
-        }
-        if (item.endTime) {
-          item.endTime = new Date(item.endTime);
-        }
-        else {
-          item.endTime = new Date();
-        }
 
-
-      });
-    }
-
+  loadToArry() {
+    console.log(this.isDataloaded);
+    this._events.forEach(element => {
+      console.log(element.title + "wird geladen")
+      element.startTime = new Date(element.startTime);
+      element.endTime = new Date(element.endTime);
+      this.events.push(element);
+      console.log(element.title + "zum Kalender hinzugefügt")
+      this.isDataloaded = true;
+    });
   }
 
+  async loadEventsAsync() {
 
-  // createRandomEvents() {
-  //   var events = [];
-  //   for (var i = 0; i < 50; i += 1) {
-  //     var date = new Date();
-  //     var eventType = Math.floor(Math.random() * 2);
-  //     var startDay = Math.floor(Math.random() * 90) - 45;
-  //     var endDay = Math.floor(Math.random() * 2) + startDay;
-  //     var startTime;
-  //     var endTime;
-  //     if (eventType === 0) {
-  //       startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
-  //       if (endDay === startDay) {
-  //         endDay += 1;
-  //       }
-  //       endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
-  //       events.push({
-  //         title: 'All Day - ' + i,
-  //         startTime: startTime,
-  //         endTime: endTime,
-  //         allDay: true
-  //       });
-  //     } else {
-  //       var startMinute = Math.floor(Math.random() * 24 * 60);
-  //       var endMinute = Math.floor(Math.random() * 180) + startMinute;
-  //       startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + startDay, 0, date.getMinutes() + startMinute);
-  //       endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + endDay, 0, date.getMinutes() + endMinute);
-  //       events.push({
-  //         title: 'Event - ' + i,
-  //         startTime: startTime,
-  //         endTime: endTime,
-  //         allDay: false
-  //       });
-  //     }
-  //   }
+    if (await this.localDb.get('events')) {
+      this._events = await this.localDb.get('events');
+      console.log(await this.localDb.get('events'));
+      console.log("Ausm Speicher init");
+      this.isDataloaded = true;
 
-  // }
+    }
+  }
 }

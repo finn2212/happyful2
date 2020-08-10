@@ -1,14 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Goal } from '../models/goal'
+import { Goal } from '../models/goal';
 import { Storage } from '@ionic/storage';
 import { GoalStep } from '../models/goalStep';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { CalenderService } from '../calendar/calender.service'
+import { Calitem } from '../models/calItem';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoalsService {
-  goals: Array<Goal> = [];
+
+  goals = new BehaviorSubject<Goal[]>([]);
+  _goals;
+  isDataLoad = false;
+
   newGoalName: string;
   newGoalWhy: string;
   newGoalCategory;
@@ -21,27 +29,36 @@ export class GoalsService {
 
   constructor(
     private localDb: Storage,
-    private router: Router
+    private router: Router,
+    private calService: CalenderService
+
   ) {
-
   }
 
-  public getGoals(): Array<Goal> {
-    return this.goals.slice();
+  getGoalsObservable() {
+    return this.goals.asObservable();
   }
+
   createGoal() {
     const goal = new Goal(this.newGoalName, this.newGoalWhy);
+    console.log("goal Created with Uid: " + goal.id)
     goal.steps = this.newGoalSteps;
     goal.category = this.newGoalCategory;
     goal.desc = this.newGoalDesc;
     if (this.newGoalStartDate) {
-      goal.startDate = this.newGoalStartDate;
+      goal.startTime = this.newGoalStartDate;
     }
     if (this.newGoalEndDate) {
-      goal.endDate = this.newGoalEndDate;
+      goal.endTime = this.newGoalEndDate;
     }
-    this.goals.push(goal);
-    this.storeGoals();
+    if (this.newGoalEndDate && this.newGoalEndDate) {
+      let cal = new Calitem(goal.name, goal.startTime, goal.endTime);
+      this.calService.addEventToCalendar(cal);
+      console.log("addet to Cal Service");
+    }
+
+    this.goals.getValue().push(goal);
+    this.updateGoal();
     this.newGoalSteps = [];
     this.newGoalName = "";
     this.newGoalWhy = "";
@@ -51,17 +68,31 @@ export class GoalsService {
 
   }
 
-  public updateGoal(goals: Array<Goal>) {
-    this.goals = goals;
-    this.storeGoals();
+  public updateGoal() {
+    this.localDb.set('goals', this.goals.getValue());
   }
 
-  private storeGoals() {
-    this.localDb.set('goals', this.goals);
-  }
+
   async loadGoalsAsync() {
     if (await this.localDb.get('goals')) {
-      this.goals = await this.localDb.get('goals');
+      this._goals = await this.localDb.get('goals');
+    }
+
+  }
+  loadToArry() {
+    if (this._goals) {
+      if (!this.isDataLoad) {
+        this._goals.forEach(element => {
+          this.goals.getValue().push(element);
+        });
+        this.isDataLoad = true;
+      }
+      else {
+        console.log("Goals sind schon geladen");
+      }
+    } else {
+      console.log("goals noch nicht geladen");
+      this.router.navigateByUrl('/tabs/calender');
     }
 
   }

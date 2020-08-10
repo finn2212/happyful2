@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
-
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { GoalsService } from './goals/goals.service'
-import { async } from '@angular/core/testing';
-import { CalenderService } from './calendar/calender.service';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +13,7 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private goalsService: GoalsService,
-    private calenderService: CalenderService
+
   ) {
     this.initializeApp();
   }
@@ -28,7 +23,5 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-    await this.goalsService.loadGoalsAsync();
-    await this.calenderService.loadEventsAsync();
   }
 }

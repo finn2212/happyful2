@@ -1,8 +1,9 @@
-import { GoalStep } from './goalStep'
-import { Category } from './category'
+import { GoalStep } from './goalStep';
+import { Category } from './category';
+import { v4 as uuidv4 } from 'uuid';
 
 export class Goal {
-  id: number;
+  id: string;
   name: string;
   category: Category;
   why: string;
@@ -10,8 +11,10 @@ export class Goal {
   desc: string;
   steps: Array<GoalStep>;
   activ: boolean;
-  startDate: Date;
-  endDate: Date;
+  startTime: Date;
+  endTime: Date;
+  title: string;
+  calItemId: string;
 
   constructor(name: string, why: string) {
 
@@ -19,6 +22,7 @@ export class Goal {
     this.why = why;
     this.steps = [];
     this.activ = true
+    this.id = uuidv4();
   }
 
   addStep(step: GoalStep) {

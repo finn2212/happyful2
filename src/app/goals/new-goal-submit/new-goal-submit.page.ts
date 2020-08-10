@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { GoalsService } from '../goals.service'
-import { Router } from '@angular/router';
-import { GoalStep } from '../../models/goalStep'
+import { GoalsService } from '../goals.service';
+import { GoalStep } from '../../models/goalStep';
 import { Calitem } from 'src/app/models/calItem';
-import { CalenderService } from '../../calendar/calender.service'
+import { CalenderService } from '../../calendar/calender.service';
 
 @Component({
   selector: 'app-new-goal-submit',
@@ -21,24 +20,21 @@ export class NewGoalSubmitPage implements OnInit {
   newStepDate;
 
   constructor(private goalsService: GoalsService,
-    private router: Router,
     private calSerice: CalenderService
   ) { }
 
 
   ngOnInit() {
     this.newGoalName = this.goalsService.newGoalName;
-    console.log(this.newGoalName)
     this.newGoalWhy = this.goalsService.newGoalWhy;
     this.newGoalCategory = this.goalsService.newGoalCategory;
-    console.log(this.goalsService.newGoalName);
+
   }
   ionViewWillEnter() {
     this.newGoalName = this.goalsService.newGoalName;
-    console.log(this.newGoalName)
     this.newGoalWhy = this.goalsService.newGoalWhy;
     this.newGoalCategory = this.goalsService.newGoalCategory;
-    console.log(this.goalsService.newGoalName);
+
   }
 
   async onSubmit(form: NgForm) {
@@ -64,7 +60,7 @@ export class NewGoalSubmitPage implements OnInit {
       console.log(this.newStepDate);
       let calitem = new Calitem(this.newStepString, new Date(this.newStepDate), end);
       this.calSerice.addEventToCalendar(calitem);
-      step.calItem = calitem;
+      step.calItemId = calitem.id;
       this.steps.push(step);
       console.log(calitem);
     }

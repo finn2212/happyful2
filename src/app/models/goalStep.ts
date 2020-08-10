@@ -1,10 +1,10 @@
-import { Calitem } from './calItem';
+
 
 export class GoalStep {
   id: number;
   name: string;
   priority: number;
-  calItem: Calitem;
+  calItemId: string;
 
   constructor(name: string) {
 

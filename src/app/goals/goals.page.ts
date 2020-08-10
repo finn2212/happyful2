@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GoalsService } from './goals.service'
 import { Goal } from '../models/goal'
 import { Router } from '@angular/router';
@@ -11,29 +11,30 @@ import { Router } from '@angular/router';
 export class GoalsPage implements OnInit {
 
 
-  goals: Array<Goal> = [];
+  goals;
   isActiveGoals = true;
 
   constructor(
     private goalsService: GoalsService,
     private router: Router,
-  ) { }
+  ) {
+
+    this.goalsService.getGoalsObservable().subscribe(res => {
+      console.log('new Value: ', res);
+      this.goals = res;
+    });
+  }
 
   ngOnInit() {
-    this.goals = this.goalsService.getGoals();
-    console.log("init")
-
+    this.goalsService.loadToArry();
   }
-
   ionViewWillEnter() {
-    console.log("golas Reloaded")
-    this.goals = this.goalsService.getGoals();
-
+    this.goalsService.loadToArry();
   }
+
   onGoalSelected(goal: Goal) {
     this.goalsService.selectedGoal = goal;
     this.router.navigateByUrl('/goals/goal-detail');
-
   }
 
   newGoal() {
@@ -45,14 +46,14 @@ export class GoalsPage implements OnInit {
   }
 
   finischGoal(goal: Goal) {
-    this.goalsService.updateGoal(this.goals);
     goal.activ = false;
+    this.goalsService.updateGoal();
   }
   deleteGoal(goal: Goal) {
     const index: number = this.goals.indexOf(goal);
     if (index !== -1) {
       this.goals.splice(index, 1);
     }
-    this.goalsService.updateGoal(this.goals);
+    this.goalsService.updateGoal();
   }
 }

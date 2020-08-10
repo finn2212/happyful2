@@ -12,15 +12,19 @@ const routes: Routes = [
   },
   {
     path: 'cal-modal',
-    loadChildren: () => import('./calendar/cal-modal/cal-modal.module').then( m => m.CalModalPageModule)
+    loadChildren: () => import('./calendar/cal-modal/cal-modal.module').then(m => m.CalModalPageModule)
   },
   {
     path: 'caladar',
-    loadChildren: () => import('./calendar/caladar/caladar.module').then( m => m.CaladarPageModule)
+    loadChildren: () => import('./calendar/caladar/caladar.module').then(m => m.CaladarPageModule)
   },
   {
     path: 'calendar-detail',
-    loadChildren: () => import('./calendar/calendar-detail/calendar-detail.module').then( m => m.CalendarDetailPageModule)
+    loadChildren: () => import('./calendar/calendar-detail/calendar-detail.module').then(m => m.CalendarDetailPageModule)
+  },
+  {
+    path: 'loading',
+    loadChildren: () => import('./loading/loading.module').then(m => m.LoadingPageModule)
   }
 ];
 @NgModule({
