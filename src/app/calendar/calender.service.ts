@@ -30,7 +30,7 @@ export class CalenderService {
 
     return this.events;
   }
-  private storeEvents() {
+  storeEvents() {
     this.localDb.set('events', this.events);
   }
 
@@ -41,6 +41,7 @@ export class CalenderService {
         console.log(element.title + "wird geladen")
         element.startTime = new Date(element.startTime);
         element.endTime = new Date(element.endTime);
+        element.allDay = true;
         this.events.push(element);
         console.log(element.title + "zum Kalender hinzugefügt")
         this.isDataloaded = true;

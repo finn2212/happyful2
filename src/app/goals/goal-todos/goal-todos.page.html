@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>goalTodos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>{{newGoal}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-input type="text" placeholder="Enter task" [(ngModel)]="taskName"></ion-input>
+
+    <div class="item-note" item-end>
+      <ion-button color="primary" (click)="addTask()">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-item>
+  <ion-list>
+    <ng-container *ngFor="let todo of newTodos; let i=index">
+      <ion-item>
+        {{todo.name}}
+        <div class="item-note" slot="end">
+          <ion-button color="danger" clear (click)="deleteTask(i)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+          <ion-button color="primary" clear (click)="addToToday(i)">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+  <ion-item>
+    <ion-button (click)="continue()"> Weiter</ion-button>
+  </ion-item>
+</ion-content>

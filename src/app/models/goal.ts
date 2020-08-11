@@ -1,6 +1,7 @@
 import { GoalStep } from './goalStep';
 import { Category } from './category';
 import { v4 as uuidv4 } from 'uuid';
+import { Todo } from './todo';
 
 export class Goal {
   id: string;
@@ -15,12 +16,14 @@ export class Goal {
   endTime: Date;
   title: string;
   calItemId: string;
+  todoIds: Array<string>;
 
   constructor(name: string, why: string) {
 
     this.name = name;
     this.why = why;
-    this.steps = [];
+    this.steps = new Array<GoalStep>();
+    this.todoIds = new Array<string>();
     this.activ = true
     this.id = uuidv4();
   }

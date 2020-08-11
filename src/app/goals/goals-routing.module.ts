@@ -27,6 +27,10 @@ const routes: Routes = [
   {
     path: 'goal-detail',
     loadChildren: () => import('./goal-detail/goal-detail.module').then( m => m.GoalDetailPageModule)
+  },
+  {
+    path: 'goal-todos',
+    loadChildren: () => import('./goal-todos/goal-todos.module').then( m => m.GoalTodosPageModule)
   }
 ];
 

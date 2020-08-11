@@ -7,6 +7,7 @@ import { TodoService } from './todo.service';
   styleUrls: ['./todos.page.scss'],
 })
 export class TodosPage implements OnInit {
+  isToday: boolean;
   taskName: any = ''; // Entered Text
   taskList; // Array to store tasks
 
@@ -17,12 +18,18 @@ export class TodosPage implements OnInit {
       console.log('new Value: ', res);
       this.taskList = res;
     });
+    this.isToday = false;
   }
 
   ngOnInit() {
   }
+  segmentChanged(ev: any) {
+    this.isToday = !this.isToday;
+  }
 
-
+  changeState(index: number) {
+    this.todoService.changeState(index);
+  }
 
   // addTask Function
   // First we check if the text is entered or not in input box by verifying if length > 0
@@ -30,13 +37,9 @@ export class TodosPage implements OnInit {
   // After adding we reset the taskName
   addTask() {
     if (this.taskName.length > 0) {
-      this.todoService.addTodo(this.taskName);
+      this.todoService.addTodo(this.taskName, this.isToday);
       this.taskName = "";
     }
-
-
-
-
   }
   // deleteTask Function
   // When user clicks the delete task button, this function is called with index i as parameter

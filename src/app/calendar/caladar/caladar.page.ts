@@ -53,6 +53,8 @@ export class CaladarPage implements OnInit {
 
   removeEvents() {
     this.eventSource = [];
+    this.calService.events = this.eventSource;
+    this.calService.storeEvents();
   }
 
   async openCalModal() {
@@ -90,13 +92,14 @@ export class CaladarPage implements OnInit {
     });
   }
   async onEventSelected(event) {
-    this.calService.calenderEvent = event;
-    const modal = await this.modalCtrl.create({
-      component: CalendarDetailPage,
-      cssClass: 'cal-modal',
-      backdropDismiss: false
-    });
-    await modal.present();
+
+    //   this.calService.calenderEvent = event;
+    //   const modal = await this.modalCtrl.create({
+    //     component: CalendarDetailPage,
+    //     cssClass: 'cal-modal',
+    //     backdropDismiss: false
+    //   });
+    //   await modal.present();
   }
 
 

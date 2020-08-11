@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { CalenderService } from '../calendar/calender.service'
 import { Calitem } from '../models/calItem';
+import { Todo } from '../models/todo';
+import { TodoService } from '../todos/todo.service';
 
 
 @Injectable({
@@ -25,12 +27,14 @@ export class GoalsService {
   selectedGoal: Goal;
   newGoalStartDate: Date;
   newGoalEndDate: Date;
+  newGoalTodos: Array<Todo> = [];
 
 
   constructor(
     private localDb: Storage,
     private router: Router,
-    private calService: CalenderService
+    private calService: CalenderService,
+    private todoService: TodoService
 
   ) {
   }
@@ -55,6 +59,14 @@ export class GoalsService {
       let cal = new Calitem(goal.name, goal.startTime, goal.endTime);
       this.calService.addEventToCalendar(cal);
       console.log("addet to Cal Service");
+    }
+    if (this.newGoalTodos.length > 0) {
+      this.newGoalTodos.forEach(el => {
+        goal.todoIds.push(el.id);
+
+      })
+      this.todoService.addTodoList(this.newGoalTodos);
+
     }
 
     this.goals.getValue().push(goal);

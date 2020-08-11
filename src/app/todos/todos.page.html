@@ -5,6 +5,17 @@
 </ion-header>
 
 <ion-content>
+  <ion-toolbar>
+    <ion-segment (ionChange)="segmentChanged($event)" value="friends">
+      <ion-segment-button value="friends">
+        <ion-label>Heutige todos </ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="enemies">
+        <ion-label>irgendwann Todos </ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+  </ion-toolbar>
   <ion-content>
     <ion-item>
       <ion-input type="text" placeholder="Enter task" [(ngModel)]="taskName"></ion-input>
@@ -16,19 +27,47 @@
       </div>
     </ion-item>
     <div>
-      <ion-list>
-        <ion-item *ngFor="let todo of taskList; let i=index">
-          {{todo.name}}
-          <div class="item-note" slot="end">
-            <ion-button color="danger" clear (click)="deleteTask(i)">
-              <ion-icon name="trash"></ion-icon>
-            </ion-button>
-            <ion-button color="primary" clear (click)="addToToday(i)">
-              <ion-icon name="calendar-outline"></ion-icon>
-            </ion-button>
-          </div>
-        </ion-item>
-      </ion-list>
+      <ng-container *ngIf="isToday">
+        <ion-list>
+          <ng-container *ngFor="let todo of taskList; let i=index">
+            <ion-item *ngIf="todo.isToday">
+              {{todo.name}}
+              <div class="item-note" slot="end">
+                <ion-button color="danger" clear (click)="deleteTask(i)">
+                  <ion-icon name="trash"></ion-icon>
+                </ion-button>
+                <ion-button color="primary" clear (click)="addToToday(i)">
+                  <ion-icon name="calendar-outline"></ion-icon>
+                </ion-button>
+                <ion-button color="primary" clear (click)="changeState(i)">
+                  <ion-icon name="arrow-undo-outline"></ion-icon>
+                </ion-button>
+              </div>
+            </ion-item>
+          </ng-container>
+        </ion-list>
+      </ng-container>
+      <ng-container *ngIf="!isToday">
+        <ion-list>
+          <ng-container *ngFor="let todo of taskList; let i=index">
+            <ion-item *ngIf="!todo.isToday">
+              {{todo.name}}
+              <div class="item-note" slot="end">
+                <ion-button color="danger" clear (click)="deleteTask(i)">
+                  <ion-icon name="trash"></ion-icon>
+                </ion-button>
+                <ion-button color="primary" clear (click)="addToToday(i)">
+                  <ion-icon name="calendar-outline"></ion-icon>
+                </ion-button>
+                <ion-button color="primary" clear (click)="changeState(i)">
+
+                  <ion-icon name="arrow-redo-outline"></ion-icon>
+                </ion-button>
+              </div>
+            </ion-item>
+          </ng-container>
+        </ion-list>
+      </ng-container>
     </div>
   </ion-content>
 </ion-content>
