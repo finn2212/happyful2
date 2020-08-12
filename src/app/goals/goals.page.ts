@@ -26,15 +26,16 @@ export class GoalsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.goalsService.loadToArry();
+
   }
   ionViewWillEnter() {
-    this.goalsService.loadToArry();
+    console.log("checking if done");
+    this.goalsService.checkAllIsDone();
   }
 
   onGoalSelected(goal: Goal) {
     this.goalsService.selectedGoal = goal;
-    this.router.navigateByUrl('/goals/goal-detail');
+    this.router.navigateByUrl('/tabs/goals/goal-detail');
   }
 
   newGoal() {

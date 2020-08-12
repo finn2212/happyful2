@@ -4,6 +4,8 @@ import { GoalsService } from '../goals.service'
 import { Router } from '@angular/router';
 import { Goal } from '../../models/goal';
 import { GoalStep } from '../../models/goalStep'
+import { TodoService } from 'src/app/todos/todo.service';
+import { Todo } from 'src/app/models/todo';
 
 @Component({
   selector: 'app-goal-detail',
@@ -13,13 +15,16 @@ import { GoalStep } from '../../models/goalStep'
 export class GoalDetailPage implements OnInit {
   GoalName;
   GoalWhy;
-  steps: Array<GoalStep> = [];
+  steps = new Array<GoalStep>();
   newStepString;
   goal: Goal;
   mode: boolean;
+  goalTodos = new Array<Todo>();
+  todosDone: number;
+  newTodoName: "";
 
   constructor(private goalsService: GoalsService,
-    private router: Router,
+    private router: Router, private todoService: TodoService
   ) { }
 
 
@@ -32,6 +37,10 @@ export class GoalDetailPage implements OnInit {
   }
   ionViewWillEnter() {
     this.goal = this.goalsService.selectedGoal;
+    this.getTodosFromGoal();
+    console.log(this.goal.progress);
+    console.log(this.goal.todoIds.length);
+
 
   }
 
@@ -40,6 +49,16 @@ export class GoalDetailPage implements OnInit {
     this.steps = [];
     await this.goalsService.createGoal();
     form.reset();
+  }
+  addTodo() {
+    if (this.newTodoName.length > 0) {
+      const newTodo = new Todo(this.newTodoName, 'sometime');
+      this.goalsService.addTodosToGoal(newTodo);
+      this.todoService.addSingleTodo(newTodo);
+    }
+    this.newTodoName = "";
+    this.getTodosFromGoal();
+
   }
   addStep() {
     if (this.newStepString) {
@@ -52,6 +71,14 @@ export class GoalDetailPage implements OnInit {
   changeMode() {
     this.mode = !this.mode;
     console.log(this.mode);
+  }
+  getTodosFromGoal() {
+    if (this.goal) {
+      this.goalTodos = this.goalsService.getTodosFromGoal(this.goal);
+      this.todosDone = this.goal.progress - this.goalTodos.length;
+
+
+    }
   }
 
 

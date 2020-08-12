@@ -30,21 +30,22 @@ export class GoalsService {
   newGoalTodos: Array<Todo> = [];
 
 
+
   constructor(
     private localDb: Storage,
     private router: Router,
     private calService: CalenderService,
     private todoService: TodoService
 
-  ) {
-  }
+  ) { }
 
   getGoalsObservable() {
     return this.goals.asObservable();
   }
 
+
   createGoal() {
-    const goal = new Goal(this.newGoalName, this.newGoalWhy);
+    const goal = new Goal(this.newGoalName, this.newGoalWhy, this.newGoalTodos.length);
     console.log("goal Created with Uid: " + goal.id)
     goal.steps = this.newGoalSteps;
     goal.category = this.newGoalCategory;
@@ -76,9 +77,41 @@ export class GoalsService {
     this.newGoalWhy = "";
     this.newGoalEndDate = null;
     this.newGoalEndDate = null;
+    this.newGoalTodos = [];
     this.router.navigateByUrl('/tabs/goals');
 
   }
+  checkAllIsDone() {
+    this.goals.getValue().forEach(goal => {
+      if (this.checkIfDone(goal) == true) {
+        goal.activ = false;
+      }
+    })
+  }
+  private checkIfDone(goal: Goal) {
+    let isDone = false
+    if (this.todoService.getTodosFromGoal(goal.todoIds).length == 0 && goal.todoIds.length > 0) {
+      isDone = true
+    }
+
+    return isDone;
+  }
+
+
+  getTodosFromGoal(goal: Goal) {
+    const todos = this.todoService.getTodosFromGoal(goal.todoIds);
+    return todos;
+  }
+  addTodosToGoal(todo: Todo) {
+    this.goals.getValue().forEach(el => {
+      if (this.selectedGoal.id == el.id) {
+        el.todoIds.push(todo.id);
+        el.progress = el.progress + 1;
+      }
+    })
+
+  }
+
 
   public updateGoal() {
     this.localDb.set('goals', this.goals.getValue());

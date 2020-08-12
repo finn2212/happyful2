@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar';
-import { AlertController, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { CalenderService } from '../calender.service';
-
-import { CalModalPage } from '../cal-modal/cal-modal.page';
-import { CalendarDetailPage } from '../calendar-detail/calendar-detail.page';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-caladar',
@@ -28,12 +25,16 @@ export class CaladarPage implements OnInit {
   }
   ionViewDidLoad() {
     this.eventSource = this.calService.getAllEvents();
+
     this.myCal.loadEvents();
   }
   ionViewWillEnter() {
     this.eventSource = this.calService.getAllEvents();
+
     this.myCal.loadEvents();
   }
+
+
 
   getEntries() {
     this.calService.loadToArry();
@@ -58,48 +59,7 @@ export class CaladarPage implements OnInit {
   }
 
   async openCalModal() {
-    const modal = await this.modalCtrl.create({
-      component: CalModalPage,
-      cssClass: 'cal-modal',
-      backdropDismiss: false
-    });
-
-    await modal.present();
-
-    modal.onDidDismiss().then((result) => {
-      if (result.data && result.data.event) {
-        let event = result.data.event;
-        if (event.allDay) {
-          let start = event.startTime;
-          event.startTime = new Date(
-            Date.UTC(
-              start.getUTCFullYear(),
-              start.getUTCMonth(),
-              start.getUTCDate()
-            )
-          );
-          event.endTime = new Date(
-            Date.UTC(
-              start.getUTCFullYear(),
-              start.getUTCMonth(),
-              start.getUTCDate() + 1
-            )
-          );
-        }
-        this.eventSource.push(result.data.event);
-        this.myCal.loadEvents();
-      }
-    });
-  }
-  async onEventSelected(event) {
-
-    //   this.calService.calenderEvent = event;
-    //   const modal = await this.modalCtrl.create({
-    //     component: CalendarDetailPage,
-    //     cssClass: 'cal-modal',
-    //     backdropDismiss: false
-    //   });
-    //   await modal.present();
+    this.calService.deleteAll();
   }
 
 

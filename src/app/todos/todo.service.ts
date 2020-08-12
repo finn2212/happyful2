@@ -11,16 +11,37 @@ export class TodoService {
 
   constructor(
     private calService: CalenderService,
-    private localDb: Storage
-  ) { }
+    private localDb: Storage,
+  ) {
+
+  }
   taskList = new BehaviorSubject<Todo[]>([]);
   _todos;
 
   getTodosObservable() {
     return this.taskList.asObservable();
   }
-  addTodo(name: string, isToday: boolean) {
-    let todo = new Todo(name, isToday);
+
+  getTodosFromGoal(todoIds: Array<string>) {
+    const goalTodos = [];
+    if (todoIds.length > 0) {
+      todoIds.forEach(exTodoId => {
+        this.taskList.getValue().forEach(todo => {
+          if (exTodoId == todo.id)
+            goalTodos.push(todo);
+        });
+      });
+    }
+    return goalTodos;
+  }
+
+  addTodo(name: string, state: string) {
+    let todo = new Todo(name, state);
+    this.taskList.getValue().push(todo);
+    this.updateTodos();
+
+  }
+  addSingleTodo(todo: Todo) {
     this.taskList.getValue().push(todo);
     this.updateTodos();
 
@@ -35,16 +56,25 @@ export class TodoService {
   }
   deleteTodo(index: number) {
     this.taskList.getValue().splice(index, 1);
+    this.updateTodos();
   }
-  addToToday(index: number) {
-    const name = this.taskList.getValue()[index].name;
-    const calitem = new Calitem(name, new Date(), new Date());
-    calitem.externalId = this.taskList.getValue()[index].id;
-    this.calService.addEventToCalendar(calitem);
+  addToCalender(event, index) {
+    const calenderItem = new Calitem(this.taskList.getValue()[index].name, event.startTime, event.endTime);
+    calenderItem.externalId = this.taskList.getValue()[index].id;
+    calenderItem.allDay = true;
+    this.calService.addEventToCalendar(calenderItem);
+    this.setTodoStates();
+  }
 
+  addTodayToCalender(index) {
+    const calenderItem = new Calitem(this.taskList.getValue()[index].name, new Date(), new Date());
+    calenderItem.externalId = this.taskList.getValue()[index].id;
+    calenderItem.allDay = true;
+    this.calService.addEventToCalendar(calenderItem);
+    this.setTodoStates();
   }
   changeState(index: number) {
-    this.taskList.getValue()[index].isToday = !this.taskList.getValue()[index].isToday;
+    // this.taskList.getValue()[index].isToday = !this.taskList.getValue()[index].isToday;
     this.updateTodos();
   }
   updateTodos() {
@@ -58,6 +88,18 @@ export class TodoService {
       });
 
     }
+    this.setTodoStates();
+  }
+  setTodoStates() {
+    console.log(this.calService.getDatesWithIds()[1]);
+
+    const todoCalenderPairs = this.calService.getDatesWithIds();
+    this.taskList.getValue().forEach(todo => {
+      todoCalenderPairs.forEach(pair => {
+        if (todo.id == pair.id)
+          todo.state = pair.state;
+      })
+    })
   }
 
   async loadTodosAsync() {

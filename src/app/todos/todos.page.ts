@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from './todo.service';
+import { ModalController } from '@ionic/angular';
+import { CalModalPage } from '../calendar/cal-modal/cal-modal.page';
+import { CalenderService } from '../calendar/calender.service';
+import { Calitem } from '../models/calItem';
 
 @Component({
   selector: 'app-todos',
@@ -7,24 +11,30 @@ import { TodoService } from './todo.service';
   styleUrls: ['./todos.page.scss'],
 })
 export class TodosPage implements OnInit {
-  isToday: boolean;
+
+  state: string;
   taskName: any = ''; // Entered Text
   taskList; // Array to store tasks
 
   constructor(
-    private todoService: TodoService
+    private todoService: TodoService,
+    private modalCtrl: ModalController,
+    private calService: CalenderService
   ) {
     this.todoService.getTodosObservable().subscribe(res => {
       console.log('new Value: ', res);
       this.taskList = res;
     });
-    this.isToday = false;
+
+    this.state = "today";
   }
 
   ngOnInit() {
   }
   segmentChanged(ev: any) {
-    this.isToday = !this.isToday;
+    console.log(ev.detail.value);
+
+    this.state = ev.detail.value;
   }
 
   changeState(index: number) {
@@ -37,7 +47,7 @@ export class TodosPage implements OnInit {
   // After adding we reset the taskName
   addTask() {
     if (this.taskName.length > 0) {
-      this.todoService.addTodo(this.taskName, this.isToday);
+      this.todoService.addTodo(this.taskName, 'sometime');
       this.taskName = "";
     }
   }
@@ -48,9 +58,41 @@ export class TodosPage implements OnInit {
   deleteTask(index) {
     this.todoService.deleteTodo(index);
   }
-  addToToday(index) {
-    this.todoService.addToToday(index);
-  }
 
+  async openTodoModal(index) {
+    const modal = await this.modalCtrl.create({
+      component: CalModalPage,
+      cssClass: 'cal-modal',
+      backdropDismiss: false
+    });
+    modal.onDidDismiss().then((result) => {
+      if (result.data && result.data.event) {
+        let event = result.data.event;
+
+        if (event.allDay) {
+          let start = event.startTime;
+          event.startTime = new Date(
+            Date.UTC(
+              start.getUTCFullYear(),
+              start.getUTCMonth(),
+              start.getUTCDate() + 1
+            )
+          );
+          event.endTime = new Date(
+            Date.UTC(
+              start.getUTCFullYear(),
+              start.getUTCMonth(),
+              start.getUTCDate() + 1
+            )
+          );
+        }
+        console.log(event);
+        this.todoService.addToCalender(event, index);
+
+      }
+    });
+    await modal.present();
+
+  }
 
 }

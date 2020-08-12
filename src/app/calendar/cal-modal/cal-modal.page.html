@@ -12,18 +12,38 @@
   </ion-buttons>
 </ion-toolbar>
 
+
+
+<!-- Move forward one screen of the slides -->
+
+
 <ion-content>
   <ion-item>
-    <ion-label position="stacked">Title</ion-label>
-    <ion-input tpye="text" [(ngModel)]="event.title"></ion-input>
+    <!-- <ion-label position="stacked">Wähle ein Datum aus an dem du dein Todo erledigen möchtest</ion-label> -->
+    <p>Wähle ein Datum aus an dem du dein Todo erledigen möchtest</p>
   </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Description</ion-label>
-    <ion-input tpye="text" [(ngModel)]="event.desc"></ion-input>
-  </ion-item>
+  <ion-row>
+    <!-- Move back one screen of the slides -->
+    <ion-col size="2">
+      <ion-button fill="clear" (click)="back()">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+    <ion-col size="8" class="ion-text-center">
+      <h2>{{ viewTitle }}</h2>
+    </ion-col>
+
+    <!-- Move forward one screen of the slides -->
+    <ion-col size="2">
+      <ion-button fill="clear" (click)="next()">
+        <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
 
   <calendar *ngIf="modalReady" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
-    (onTitleChanged)="onViewTitleChanged($event)" (onTimeSelected)="onTimeSelected($event)" lockSwipes="true"
+    (onTitleChanged)="onViewTitleChanged($event)" (onTimeSelected)="onTimeSelected($event)"
     (onEventSelected)="onEventSelected($event)">
   </calendar>
 </ion-content>

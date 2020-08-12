@@ -1,5 +1,6 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { CalendarComponent } from 'ionic2-calendar';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class CalModalPage implements AfterViewInit {
   };
 
   modalReady = false;
+  @ViewChild(CalendarComponent) myCal2: CalendarComponent;
 
   constructor(private modalCtrl: ModalController) { }
 
@@ -34,6 +36,14 @@ export class CalModalPage implements AfterViewInit {
 
   save() {
     this.modalCtrl.dismiss({ event: this.event })
+  }
+  next() {
+    console.log(this.myCal2);
+    this.myCal2.slideNext();
+
+  }
+  back() {
+    this.myCal2.slidePrev();
   }
 
   onViewTitleChanged(title) {

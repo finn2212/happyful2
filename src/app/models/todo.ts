@@ -4,13 +4,15 @@ export class Todo {
 
   name: string;
   id: string;
-  isToday: boolean;
+  state: string;
   externalId: string;
 
-  constructor(name: string, isToday: boolean) {
+  constructor(name: string, state: string) {
     this.name = name;
-    this.isToday = isToday;
+    this.state = state;
     this.id = uuidv4();
+
+
 
 
   }

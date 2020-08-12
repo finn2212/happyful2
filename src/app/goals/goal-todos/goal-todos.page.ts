@@ -24,7 +24,7 @@ export class GoalTodosPage implements OnInit {
   }
   addTask() {
     if (this.taskName.length > 0) {
-      const newTodo = new Todo(this.taskName, true);
+      const newTodo = new Todo(this.taskName, 'sometime');
       this.newTodos.push(newTodo);
     }
     this.taskName = "";

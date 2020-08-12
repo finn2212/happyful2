@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: TodosPage
+  },
+  {
+    path: 'todo-modal',
+    loadChildren: () => import('./todo-modal/todo-modal.module').then( m => m.TodoModalPageModule)
   }
 ];
 
