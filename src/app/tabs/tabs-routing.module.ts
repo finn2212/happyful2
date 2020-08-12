@@ -25,8 +25,19 @@ const routes: Routes = [
         loadChildren: () => import('../todos/todos.module').then(m => m.TodosPageModule)
       },
       {
+        path: 'dashboard',
+        loadChildren: () => import('../dashboard/dashboard/dashboard.module').then(m => m.DashboardPageModule)
+      }, {
+        path: 'journal',
+        loadChildren: () => import('../journal/journal/journal.module').then(m => m.JournalPageModule)
+      },
+      {
+        path: 'talk',
+        loadChildren: () => import('../talk/talk/talk.module').then(m => m.TalkPageModule)
+      },
+      {
         path: '',
-        redirectTo: '/tabs/goals',
+        redirectTo: '/tabs/dashboard',
         pathMatch: 'full'
       }
     ]
