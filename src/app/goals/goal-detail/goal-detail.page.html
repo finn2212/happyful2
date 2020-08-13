@@ -17,53 +17,18 @@
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
 
       <ion-item>
+        <ion-label> Ziel: </ion-label>
         <ion-label>{{goal.name}}</ion-label>
       </ion-item>
       <ion-item>
+        <ion-label> Warum: </ion-label>
         <ion-label>{{ goal.why }}
         </ion-label>
       </ion-item>
 
       <ion-item-divider></ion-item-divider>
 
-      <ion-item>
-        <ion-label>
-          Meilensteine hinzugügen
-        </ion-label>
-      </ion-item>
 
-      <ion-item *ngFor="let step of steps">
-        <ion-checkbox></ion-checkbox>
-        <ion-label>{{step.name}} </ion-label>
-      </ion-item>
-      <ion-item>
-
-
-        <ion-input type="string" (ionBlur)="addStep()" [(ngModel)]="newStepString"
-          [ngModelOptions]="{standalone: true}">
-          <ion-button size="small" (click)="addStep()" fill="clear">
-            <ion-icon slot="start" name="add-circle-outline" size="large"></ion-icon>
-          </ion-button>
-        </ion-input>
-
-      </ion-item>
-      <ion-item-divider></ion-item-divider>
-      <ion-item *ngIf="!mode">
-        <ion-label>Start Date:</ion-label>
-        <ion-label> {{goal.startDate}}</ion-label>
-      </ion-item>
-      <ion-item *ngIf="mode">
-        <ion-label>Start Date:</ion-label>
-        <ion-datetime value="goal.startDate" placeholder="Select Date"></ion-datetime>
-      </ion-item>
-
-
-      <ion-item>
-        <ion-label>End Date</ion-label>
-        <ion-datetime value="1990-02-20" placeholder="Select Date"></ion-datetime>
-      </ion-item>
-
-      <ion-item-divider></ion-item-divider>
       <ion-item>
         <ion-label>Beschreibung</ion-label>
       </ion-item>
@@ -101,7 +66,7 @@
 
     <ion-row>
       <ion-col size-sm="6" offset-sm="3">
-        <ion-button type="submit" color="dark" expand="block" [disabled]="!f.valid">
+        <ion-button type="submit" color="dark" expand="block" *ngIf="mode">
           Ziel Speichern
         </ion-button>
       </ion-col>

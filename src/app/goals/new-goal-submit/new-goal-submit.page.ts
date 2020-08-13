@@ -18,6 +18,7 @@ export class NewGoalSubmitPage implements OnInit {
   newGoalCategory;
   newGoalDesc;
   newStepDate;
+  todos;
 
   constructor(private goalsService: GoalsService,
     private calSerice: CalenderService
@@ -28,6 +29,7 @@ export class NewGoalSubmitPage implements OnInit {
     this.newGoalName = this.goalsService.newGoalName;
     this.newGoalWhy = this.goalsService.newGoalWhy;
     this.newGoalCategory = this.goalsService.newGoalCategory;
+    this.todos = this.goalsService.newGoalTodos;
 
   }
   ionViewWillEnter() {

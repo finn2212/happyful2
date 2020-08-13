@@ -1,6 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>goalTodos</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="Back" [icon]="buttonIcon">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Todos für dein Goal</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -29,7 +33,9 @@
       </ion-item>
     </ng-container>
   </ion-list>
-  <ion-item>
-    <ion-button (click)="continue()"> Weiter</ion-button>
-  </ion-item>
+
+  <ion-button type="submit" color="dark" expand="block" (click)="continue()">
+    Weiter
+  </ion-button>
+
 </ion-content>

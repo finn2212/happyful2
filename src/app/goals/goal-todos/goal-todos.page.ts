@@ -3,6 +3,9 @@ import { GoalsService } from '../goals.service';
 import { Todo } from 'src/app/models/todo';
 import { Router } from '@angular/router';
 import { newArray } from '@angular/compiler/src/util';
+import { CalModalPage } from 'src/app/calendar/cal-modal/cal-modal.page';
+import { ModalController } from '@ionic/angular';
+import { TodoService } from 'src/app/todos/todo.service';
 
 @Component({
   selector: 'app-goal-todos',
@@ -13,7 +16,11 @@ export class GoalTodosPage implements OnInit {
   newGoal: string;
   newTodos: Array<Todo>;
   taskName: string;
-  constructor(private goalService: GoalsService, private router: Router) {
+  constructor(
+    private goalService: GoalsService,
+    private router: Router,
+    private modalCtrl: ModalController,
+    private todoService: TodoService) {
     this.newTodos = new Array();
   }
 
@@ -30,6 +37,7 @@ export class GoalTodosPage implements OnInit {
     this.taskName = "";
 
   }
+
   continue() {
     this.newTodos.forEach(el => {
       this.goalService.newGoalTodos.push(el);

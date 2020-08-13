@@ -21,7 +21,7 @@ export class GoalDetailPage implements OnInit {
   mode: boolean;
   goalTodos = new Array<Todo>();
   todosDone: number;
-  newTodoName: "";
+  newTodoName = "";
 
   constructor(private goalsService: GoalsService,
     private router: Router, private todoService: TodoService
