@@ -7,8 +7,8 @@ import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { AuthService } from './auth/auth.service';
-import { CalendarService } from 'ionic2-calendar/calendar.service';
 import { CalenderService } from './calendar/calender.service';
+import { NgCalendarModule } from 'ionic2-calendar';
 
 @Component({
   selector: 'app-root',

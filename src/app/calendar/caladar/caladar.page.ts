@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar';
-import { ModalController } from '@ionic/angular';
 import { CalenderService } from '../calender.service';
-import { Router } from '@angular/router';
 @Component({
   selector: 'app-caladar',
   templateUrl: './caladar.page.html',
@@ -18,7 +16,7 @@ export class CaladarPage implements OnInit {
   };
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
 
-  constructor(private modalCtrl: ModalController, private calService: CalenderService, private router: Router) { }
+  constructor(private calService: CalenderService) { }
 
 
   ngOnInit() {

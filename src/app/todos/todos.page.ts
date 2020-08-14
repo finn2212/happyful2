@@ -3,7 +3,6 @@ import { TodoService } from './todo.service';
 import { ModalController } from '@ionic/angular';
 import { CalModalPage } from '../calendar/cal-modal/cal-modal.page';
 import { CalenderService } from '../calendar/calender.service';
-import { Calitem } from '../models/calItem';
 
 @Component({
   selector: 'app-todos',
@@ -19,7 +18,7 @@ export class TodosPage implements OnInit {
   constructor(
     private todoService: TodoService,
     private modalCtrl: ModalController,
-    private calService: CalenderService
+
   ) {
     this.todoService.getTodosObservable().subscribe(res => {
       console.log('new Value: ', res);

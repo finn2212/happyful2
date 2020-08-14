@@ -14,6 +14,8 @@ import { AppComponent } from './app.component';
 
 import { IonicStorageModule } from '@ionic/storage';
 
+import { NgCalendarModule } from 'ionic2-calendar';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -21,6 +23,7 @@ import { IonicStorageModule } from '@ionic/storage';
     FormsModule,
     BrowserModule,
     HttpClientModule,
+    NgCalendarModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     IonicStorageModule.forRoot()],

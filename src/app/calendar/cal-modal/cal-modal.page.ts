@@ -13,6 +13,8 @@ export class CalModalPage implements AfterViewInit {
     mode: 'month',
     currentDate: new Date()
   };
+  @ViewChild(CalendarComponent) myCal2: CalendarComponent;
+
   viewTitle: string;
 
   event = {
@@ -24,7 +26,7 @@ export class CalModalPage implements AfterViewInit {
   };
 
   modalReady = false;
-  @ViewChild(CalendarComponent) myCal2: CalendarComponent;
+
 
   constructor(private modalCtrl: ModalController) { }
 
