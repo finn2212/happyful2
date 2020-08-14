@@ -7,8 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./mood.page.scss'],
 })
 export class MoodPage implements OnInit {
+  moodisSet: boolean;
+  mood;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    this.moodisSet = false;
+  }
 
   ngOnInit() {
   }
@@ -16,20 +20,9 @@ export class MoodPage implements OnInit {
   save() {
     this.router.navigateByUrl('tabs/journal');
   }
-  onButtonGroupClick($event) {
-    let clickedElement = $event.target || $event.srcElement;
-
-    if (clickedElement.nodeName === "BUTTON") {
-
-      let isCertainButtonAlreadyActive = clickedElement.parentElement.querySelector(".active");
-      // if a Button already has Class: .active
-      if (isCertainButtonAlreadyActive) {
-        isCertainButtonAlreadyActive.classList.remove("active");
-      }
-
-      clickedElement.className += " active";
-    }
-
+  setMood(mood: string) {
+    this.moodisSet = true;
+    console.log(mood);
   }
 
 }

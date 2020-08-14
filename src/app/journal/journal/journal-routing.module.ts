@@ -7,6 +7,14 @@ const routes: Routes = [
   {
     path: '',
     component: JournalPage
+  },
+  {
+    path: 'mood',
+    loadChildren: () => import('../mood/mood.module').then(m => m.MoodPageModule)
+  },
+  {
+    path: 'diary',
+    loadChildren: () => import('../diary/diary.module').then(m => m.DiaryPageModule)
   }
 ];
 
@@ -14,4 +22,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class JournalPageRoutingModule {}
+export class JournalPageRoutingModule { }

@@ -1,16 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>mood</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="Back" [icon]="buttonIcon">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>moowd</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-button>Sehr Traurig</ion-button>
-  <ion-button>Traurig</ion-button>
-  <ion-button>Mittel</ion-button>
-  <ion-button>Fröhlich</ion-button>
-  <ion-button>Sehr Fröhlich</ion-button>
+  <ion-button *ngIf="!moodisSet" (click)="setMood('Sehr Traurig')">Sehr Traurig</ion-button>
+  <ion-button *ngIf="!moodisSet" (click)="setMood(' Traurig')">Traurig</ion-button>
+  <ion-button *ngIf="!moodisSet" (click)="setMood('Mittel')">Mittel</ion-button>
+  <ion-button *ngIf="!moodisSet" (click)="setMood('Fröhlich')">Fröhlich</ion-button>
+  <ion-button *ngIf="!moodisSet" (click)="setMood('Sehr Fröhlich')">Sehr Fröhlich</ion-button>
   <ion-item-divider></ion-item-divider>
   <ion-button (click)="save()">Speichern</ion-button>
 

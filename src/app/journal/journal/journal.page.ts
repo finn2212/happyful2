@@ -30,12 +30,12 @@ export class JournalPage implements OnInit {
       buttons: [{
         text: 'Trag etwas ins Tagebuch ein',
         handler: () => {
-          this.router.navigateByUrl('tabs/diary');
+          this.router.navigateByUrl('tabs/journal/diary');
         }
       }, {
         text: 'Stimmung festlegen',
         handler: () => {
-          this.router.navigateByUrl('tabs/mood');
+          this.router.navigateByUrl('tabs/journal/mood');
         }
       }, {
         text: 'Bildhinzufügen',

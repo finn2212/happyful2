@@ -1,15 +1,23 @@
-<ion-toolbar color="primary">
-  <ion-buttons slot="start">
-    <ion-button (click)="close()">
-      schließen
-    </ion-button>
-  </ion-buttons>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Back" [icon]="buttonIcon">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>moowd</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        schließen
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-buttons slot="end">
-    <ion-button (click)="save()">
-      speichern
-    </ion-button>
-  </ion-buttons>
+<ion-buttons slot="end">
+  <ion-button (click)="save()">
+    speichern
+  </ion-button>
+</ion-buttons>
 
 </ion-toolbar>
 <ion-toolbar color="primary">

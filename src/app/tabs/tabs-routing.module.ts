@@ -36,14 +36,6 @@ const routes: Routes = [
         loadChildren: () => import('../talk/talk/talk.module').then(m => m.TalkPageModule)
       },
       {
-        path: 'diary',
-        loadChildren: () => import('../journal/diary/diary.module').then(m => m.DiaryPageModule)
-      },
-      {
-        path: 'mood',
-        loadChildren: () => import('../journal/mood/mood.module').then(m => m.MoodPageModule)
-      },
-      {
         path: '',
         redirectTo: '/tabs/dashboard',
         pathMatch: 'full'
