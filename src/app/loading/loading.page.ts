@@ -16,10 +16,28 @@ export class LoadingPage implements OnInit {
     private calService: CalenderService,
     private goalService: GoalsService,
     private todoService: TodoService) {
-    this.wait();
+
   }
+  dataLoaded: boolean = false;
 
   ngOnInit() {
+  }
+  ionViewWillEnter() {
+    this.wait2();
+  }
+  wait2() {
+
+    if (!this.dataLoaded) {
+      Promise.all([this.goalService.getSelectedGoal2()])
+        .then(values => {
+          this.goalService.loadToArry2();
+          this.router.navigateByUrl('/tabs/dashboard');
+          this.dataLoaded = true;
+        });
+    } else {
+      this.router.navigateByUrl('/tabs/dashboard');
+    }
+
   }
 
   wait() {
@@ -31,7 +49,7 @@ export class LoadingPage implements OnInit {
       let TIME_IN_MS = 500;
       let hideFooterTimeout = setTimeout(() => {
         this.calService.loadToArry();
-        this.goalService.loadToArry();
+        // this.goalService.loadToArry();
         this.todoService.loadToArry();
         let hideFooterTimeout = setTimeout(() => {
           this.router.navigateByUrl('/tabs/dashboard');

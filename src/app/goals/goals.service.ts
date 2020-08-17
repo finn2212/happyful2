@@ -28,6 +28,7 @@ export class GoalsService {
   newGoalStartDate: Date;
   newGoalEndDate: Date;
   newGoalTodos: Array<Todo> = [];
+  promiseGoals: [];
 
 
 
@@ -118,27 +119,48 @@ export class GoalsService {
   }
 
 
+
   async loadGoalsAsync() {
     if (await this.localDb.get('goals')) {
       this._goals = await this.localDb.get('goals');
+
     }
 
   }
-  loadToArry() {
-    if (this._goals) {
-      if (!this.isDataLoad) {
-        this._goals.forEach(element => {
-          this.goals.getValue().push(element);
-        });
-        this.isDataLoad = true;
-      }
-      else {
-        console.log("Goals sind schon geladen");
-      }
-    } else {
-      console.log("goals noch nicht geladen");
-      this.router.navigateByUrl('/tabs/calender');
-    }
+
+
+  getSelectedGoal2() {
+    return new Promise((resolve, reject) => {
+      this.localDb.get('goals')
+        .then(goals => {
+          resolve(goals);
+          this._goals = goals
+        })
+        .catch(reject);
+    });
+  }
+
+  // loadToArry() {
+  //   if (this._goals) {
+  //     if (!this.isDataLoad) {
+  //       this._goals.forEach(element => {
+  //         this.goals.getValue().push(element);
+  //       });
+  //       this.isDataLoad = true;
+  //     }
+  //     else {
+  //       console.log("Goals sind schon geladen");
+  //     }
+  //   } else {
+  //     console.log("goals noch nicht geladen");
+  //     // this.router.navigateByUrl('/tabs/calender');
+  //   }
+  // }
+  loadToArry2() {
+
+    this._goals.forEach(element => {
+      this.goals.getValue().push(element);
+    });
 
   }
   getSelectedGoal(): Goal {
