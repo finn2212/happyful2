@@ -9,9 +9,13 @@ import { Router } from '@angular/router';
 export class MoodPage implements OnInit {
   moodisSet: boolean;
   mood;
+  isPositiv = true;
+  feelings: [];
+
 
   constructor(private router: Router) {
     this.moodisSet = false;
+
   }
 
   ngOnInit() {
@@ -23,6 +27,10 @@ export class MoodPage implements OnInit {
   setMood(mood: string) {
     this.moodisSet = true;
     console.log(mood);
+  }
+  segmentChanged(ev: any) {
+    this.isPositiv = !this.isPositiv;
+
   }
 
 }

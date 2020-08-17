@@ -35,14 +35,14 @@
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
           <ion-button type="submit" color="primary" expand="block" [disabled]="!f.valid">
-            {{ isLogin ? 'Switch to Login' : 'Swtich to Signup ' }}
+            {{ isLogin ?  'Login': 'Signup'}}
           </ion-button>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
           <ion-button type="button" color="primary" fill="clear" expand="block" (click)="onSwitchAquthMode()">
-            {{ isLogin ? 'Signup Abschließen' : 'Go to Login' }}
+            {{ isLogin ?  'wtich to Signup' :'Switch to Login'}}
           </ion-button>
         </ion-col>
       </ion-row>
