@@ -28,7 +28,7 @@
     "@ionic/storage": "^2.3.0",
     "cordova-sqlite-storage": "^5.0.1",
     "ionic2-calendar": "^0.6.6",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.10.0",
     "uuid": "^8.3.0",
